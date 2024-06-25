@@ -1,0 +1,14 @@
+<div class="container">
+  <h1>Blog posts</h1>
+
+  <% @blog_posts.each do |blog_post| %>
+    <div class='blog-content'>
+      <h2><%= link_to blog_post.title, blog_post_path(blog_post) %></h2>
+      <p><%= blog_post.content %></p>
+      <p><%= blog_post.user.email %></p>
+      <p><%= blog_post.created_at %></p>
+      <p>written by: <%#= blog_post.author.name %></p>
+    </div>
+    <% end %>
+    
+</div>
