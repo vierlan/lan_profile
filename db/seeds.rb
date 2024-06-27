@@ -7,3 +7,21 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+3.times do
+  User.create(
+    email: Faker::Internet.email,
+    password: "password"
+  )
+end
+
+user_id = User.pluck(:id)
+
+BlogPost.destroy_all
+
+20.times do
+  BlogPost.create(
+    title: Faker::Lorem.sentence,
+    content: Faker::Lorem.paragraph(sentence_count:10),
+    user_id: User.all.sample.id
+  )
+end
