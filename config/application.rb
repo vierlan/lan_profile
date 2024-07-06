@@ -1,5 +1,4 @@
 require_relative "boot"
-
 require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
@@ -8,6 +7,9 @@ Bundler.require(*Rails.groups)
 
 module LanProfile
   class Application < Rails::Application
+    # API only
+    config.api_only = false
+    config.action_controller.default_protect_from_forgery = false
     config.action_controller.raise_on_missing_callback_actions = false if Rails.version >= "7.1.0"
     config.generators do |generate|
       generate.assets false

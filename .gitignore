@@ -36,7 +36,7 @@
 
 # Ignore .env file containing credentials.
 .env*
-
+./config/credentials.yml.enc
 # Ignore Mac and Linux file system files
 *.swp
 .DS_Store

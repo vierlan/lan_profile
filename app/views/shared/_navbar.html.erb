@@ -1,0 +1,22 @@
+<div class="navbar">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">Blog App</a>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Jump to...
+          </button>
+          <ul class="dropdown-menu">
+            <li><a href="/">Home</a></li>
+            <li><a href="/blog_posts">Blog Posts</a></li>
+            <li><a href="/blog_posts/new">New Blog Post</a></li>
+            <li><a href="/users">Users</a></li>
+            <li><a href="/users/new">New User</a></li>
+          </ul>
+        </div>
+    </div>
+    <div>
+      <%= image_tag('lan', class: "avatar") %>
+    </div>
+  </div>
+</div>

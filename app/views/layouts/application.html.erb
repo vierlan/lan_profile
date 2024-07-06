@@ -9,9 +9,11 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <%#= render '../shared/navbar' %>
   <body>
+  <%= render 'shared/navbar' %>
     <%= yield %>
   </body>
+    <p class="alert"><%= alert %></p>
+    <p class="notice"><%= notice %></p>
 </html>
