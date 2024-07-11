@@ -1,4 +1,3 @@
-// src/components/TokenValidator.jsx
 import React, { useEffect } from 'react';
 import { getAuthToken } from '../utils/auth';
 
@@ -17,7 +16,7 @@ function TokenValidator() {
 
           if (response.ok) {
             const data = await response.json();
-            alert(`Token is valid. Welcome, ${data.username}!`);
+            alert(`Token is valid. Welcome, ${data}!`);
           } else {
             const error = await response.json();
             console.log(response);

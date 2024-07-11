@@ -49,6 +49,6 @@ class Api::V1::BlogPostsController < ApplicationController
   end
 
   def handle_unauthorized
-    render json: { error: 'Unauthorized' }, status: :unauthorized
+    render json: { error: 'Unauthorized from blog post controller' }, status: :unauthorized
   end
 end

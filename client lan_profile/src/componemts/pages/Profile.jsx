@@ -9,11 +9,12 @@ function Profile() {
 
   useEffect(() => {
     async function fetchUserData() {
+      
 
       try {
         const response = await fetch('http://localhost:3000/api/v1/current_user', {
           headers: {
-
+            'Authorization': `Bearer ${localStorage.getItem('token')}`,
             'Content-Type': 'application/json'
           }
         });
@@ -47,10 +48,7 @@ function Profile() {
       <div>Profile</div>
       {userData && (
         <>
-          <h2>{userData.username}</h2>
           <p>Email: {userData.email}</p>
-          <p>Bio: {userData.bio}</p>
-          <img src={userData.avatar_url} alt="Avatar" />
         </>
       )}
     </>

@@ -1,8 +1,21 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
-  # before_action :configure_sign_in_params, only: [:create]
+ # before_action :configure_sign_in_params, only: [:create]
   respond_to :json
+
+  def create
+    user = User.find_by(email: sign_in_params[:email])
+
+    if user && user.valid_password?(sign_in_params[:password])
+      token = JWT.encode({ sub: user.id }, Rails.application.secret_key_base)
+      response.headers['Authorization'] = "Bearer #{token}"
+      render json: { message: 'Logged in successfully message sessions#create', user: user }, status: :ok
+      @current_user = user
+    else
+      render json: { error: 'Invalid email or password' }, status: :unauthorized
+    end
+  end
 
   private
 
@@ -11,6 +24,11 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def respond_to_on_destroy
+    if request.headers['Authorization'].present?
+      jwt_payload = JWT.decode(request.headers['Authorization'].split(' ').last, Rails.application.credentials.devise_jwt_secret_key!).first
+      current_user = User.find(jwt_payload['sub'])
+    end
+
     if current_user
       render json: {
         status: 200,
@@ -40,8 +58,8 @@ class Users::SessionsController < Devise::SessionsController
 
   # protected
 
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_in_params
-  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
-  # end
+  #If you have extra params to permit, append them to the sanitizer.
+  #def configure_sign_in_params
+  #  devise_parameter_sanitizer.permit(:sign_in, keys: [:email, :password])
+  #end
 end

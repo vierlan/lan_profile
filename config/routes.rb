@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get '/current_user', to: 'current_user#index'
+  get 'api/v1/current_user', to: 'api/v1/current_user#show'
   devise_for :users, path: '', path_names: {
     sign_in: 'login',
     sign_out: 'logout',
@@ -25,8 +25,7 @@ Rails.application.routes.draw do
  namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :blog_posts
-      resources :users, only: %i[index create destroy]
-
+    #  resources :current_user
     end
   end
 end

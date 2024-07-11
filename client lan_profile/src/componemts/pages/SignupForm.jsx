@@ -1,154 +1,108 @@
-import React, { useState } from 'react';
+
+import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import '../../assets/stylesheets/signupForm.scss';
+import { useNavigate } from 'react-router-dom'; 
 
 const SignUpForm = () => {
-  const navigate = useNavigate();
-  const [username, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState('');
+  const [passwordsMatchError, setPasswordsMatchError] = useState(false);
+  const [signupError, setSignupError] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSignup = async (event) => {
+    event.preventDefault();
+
+
+    if (!validatePasswords()) {
+      return;
+    }
 
     try {
-      setError('');
-
-      if (password.trim() === '') {
-        setError("Password can't be blank");
-        return;
-      }
-
-      if (password !== confirmPassword) {
-        setError('Passwords do not match');
-        return;
-      }
-
-      const dataToSend = {
+      const response = await axios.post('http://localhost:3000/signup', {
         user: {
-          username,
           email,
           password,
-        },
-      };
+          username
+        }
+      });
 
-      const response = await axios.post(
-        'http://localhost:3000/api/v1/users',
-        dataToSend,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        },
-      );
-      console.log(response);
-      navigate('/');
 
-      setName('');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
-      setError('');
+      if(response.status === 200) {
+        alert('Signup successful!');
+        const token = response.data.data.jti;
+        localStorage.setItem('token', token);
+        console.log(response);
+        console.log(response.data.data.token);
+        console.log(response.headers.Authorization);
+        console.log(response.data.data.jti);
+        setSignupError('');
+        navigate('/profile');
+      }
+      else {
+        console.log('Signup failed:', response);
+        setSignupError('Signup failed. Please try again.');
+
+      }
     } catch (error) {
-      if (
-        error.response
-        && error.response.data
-        && error.response.data.message[0]
-      ) {
-        setError(error.response.data.message[0]);
+      console.error('There was an error signing up!', error);
+      if (error.response && error.response.data && error.response.data.status) {
+        setSignupError(error.response.data.status.message);
       } else {
-        setError('An error occurred');
+        setSignupError('An error occurred during signup.');
       }
     }
   };
 
+  const validatePasswords = () => {
+    if (password !== confirmPassword) {
+      setPasswordsMatchError(true);
+      return false;
+    } else {
+      setPasswordsMatchError(false);
+      return true;
+    }
+  };
+
   return (
-    <div className="bg-gray-100 min-h-screen flex items-center justify-center">
-      <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full bg-opacity-90">
-        <form className="space-y-3" onSubmit={handleSubmit}>
-          <div>
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-gray-500 text-left"
-            >
-              Name
-              <input
-                type="text"
-                id="name"
-                value={username}
-                onChange={(e) => setName(e.target.value)}
-                className="mt-1 p-2 w-full border rounded-md"
-                placeholder="Name"
-              />
-            </label>
-          </div>
-
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-gray-500 text-left"
-            >
-              Email
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 p-2 w-full border rounded-md"
-                placeholder="Email"
-              />
-            </label>
-          </div>
-
-          <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-500 text-left"
-            >
-              Password
-              <input
-                type="password"
-                id="password"
-                className="mt-1 p-2 w-full border rounded-md"
-                placeholder="Password"
-                autoComplete="new-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </label>
-            {error && <div className="text-red-500">{error}</div>}
-          </div>
-
-          <div>
-            <label
-              htmlFor="confirmPassword"
-              className="block text-sm font-medium text-gray-500 text-left"
-            >
-              Confirm Password
-              <input
-                type="password"
-                id="confirmPassword"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                className="mt-1 p-2 w-full border rounded-md"
-                placeholder="Confirm Password"
-              />
-            </label>
-            {error && <div className="text-red-500">{error}</div>}
-          </div>
-
-          <div className="mt-6">
-            <button
-              type="submit"
-              className="w-full p-2 text-center text-white rounded-md bg-blue-600"
-            >
-              Sign up
-            </button>
-          </div>
-        </form>
-      </div>
+    <div className="sign-up-form">
+      <h2>Sign Up</h2>
+      {signupError && <div className="error-message">{signupError}</div>}
+      <form onSubmit={handleSignup}>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          required
+        />
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Username"
+          required
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          required
+        />
+        <input
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          placeholder="Confirm Password"
+          required
+        />
+        {passwordsMatchError && <div className="error-message">Passwords do not match</div>}
+        <button type="submit">Sign Up</button>
+      </form>
     </div>
   );
 };

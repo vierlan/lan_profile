@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -6,6 +6,7 @@ export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
+  const [userData, setUserData] = useState(null);
 
   const navigate = useNavigate();
 
@@ -21,15 +22,23 @@ export const Login = () => {
       });
 
       if(response.status === 200) {
-        alert('Login successful!');
-        const token = response.data.data.jti;
+
+
+        const token = response.headers.authorization;
         localStorage.setItem('token', token);
+        console.log(response.data.user.username);
         console.log(response);
-        console.log(response.data);
-        console.log(response.data.data.jti);
+        localStorage.setItem("user",response.data.user.username);
+        setUserData(response.data.user);
+        const { username, ...rest } = response.data.user;
+        alert(`Login successful! Welcome ${userData}! `);
+        console.log(userData);
+        console.log("Username", username);
+        console.log("Rest", rest);
+
         setLoginError(''); // Clear any previous error message
       // Optionally handle success message or redirect to profile page
-        navigate('/profile'); // Navigate to profile page
+       // navigate('/'); // Navigate to profile page
       }
       else {
         console.log('Login failed:', response);
@@ -59,7 +68,7 @@ export const Login = () => {
   return (
     <div className="sign-up-form">
       <h1>Login</h1>
-      <form onSubmit={handleLogin}>
+      <form>
         <label htmlFor="email">Email</label>
         <input
           type="email"
@@ -74,7 +83,7 @@ export const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Log in</button>
+        <button onClick={handleLogin}>Logout</button>
         <button onClick={handleLogout}>Logout</button>
       </form>
     </div>
