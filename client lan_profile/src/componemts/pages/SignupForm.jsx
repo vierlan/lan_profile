@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import '../../assets/stylesheets/signupForm.scss';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
+import { useNavigate } from 'react-router-dom'; 
 
 const SignUpForm = () => {
   const [email, setEmail] = useState('');
@@ -11,12 +11,12 @@ const SignUpForm = () => {
   const [username, setUsername] = useState('');
   const [passwordsMatchError, setPasswordsMatchError] = useState(false);
   const [signupError, setSignupError] = useState('');
-  const navigate = useNavigate(); // Get navigate function for navigation
+  const navigate = useNavigate();
 
   const handleSignup = async (event) => {
     event.preventDefault();
 
-    // Validate passwords before submitting
+
     if (!validatePasswords()) {
       return;
     }
@@ -30,17 +30,17 @@ const SignUpForm = () => {
         }
       });
 
-      // Handle successful response
+
       if(response.status === 200) {
         alert('Signup successful!');
         const token = response.data.data.jti;
         localStorage.setItem('token', token);
         console.log(response);
-        console.log(response.data);
+        console.log(response.data.data.token);
+        console.log(response.headers.Authorization);
         console.log(response.data.data.jti);
-        setSignupError(''); // Clear any previous error message
-      // Optionally handle success message or redirect to profile page
-        navigate('/profile'); // Navigate to profile page
+        setSignupError('');
+        navigate('/profile');
       }
       else {
         console.log('Signup failed:', response);
@@ -49,7 +49,6 @@ const SignUpForm = () => {
       }
     } catch (error) {
       console.error('There was an error signing up!', error);
-      // Handle error response
       if (error.response && error.response.data && error.response.data.status) {
         setSignupError(error.response.data.status.message);
       } else {

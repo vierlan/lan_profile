@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { API_URL } from '../../constants';
 import pic from '../../assets/images/10.jpg';
+import Post from './Post';
 
 function PostsList() {
   const [posts, setPosts] = useState([]);
@@ -39,21 +40,10 @@ function PostsList() {
       <div className='blog-container'>
         {loading && <p>Loading...</p>}
         {error && <p>{error}</p>}
-        {posts.map((post) => (
-          <div className="blog-content" key={post.id}>
-            <div className='blog-image'>
-              <img src={pic} alt={post.title} />
-              {post.user && <p>Written by: {post.user.username}</p>}
-              <p>written on: {post.created_at} </p>
+        <Post
+          posts={posts}
+        />
 
-            </div>
-            <div className='blog-text'>
-              <h2>{post.title}</h2>
-              <h4>{post.content.subheader}</h4>
-              <p>{post.content.body}</p> {/* Access the body field */}
-            </div>
-          </div>
-        ))}
       </div>
       <div className="right-container">
         <div className="project-card">
