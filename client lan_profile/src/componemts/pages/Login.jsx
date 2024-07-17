@@ -1,13 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import AuthContext from '../../api/AuthProvider';
 
-export const Login = () => {
+function Login() {
+  const { setAuth } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
-  const [userData, setUserData] = useState(null);
-
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -15,55 +15,30 @@ export const Login = () => {
 
     try {
       const response = await axios.post('http://localhost:3000/login', {
-        user: {
-          email,
-          password
-        },
+        user: { email, password }
       });
-
-      if(response.status === 200) {
-
-
+      if (response.status === 200) {
         const token = response.headers.authorization;
+        const user = response.data.user;
+        console.log(user)
+        setAuth({ user, token });
+        setEmail('');
+        setPassword('');
         localStorage.setItem('token', token);
-        console.log(response.data.user.username);
+        localStorage.setItem('loginuser', user);
+        localStorage.setItem('user_string', JSON.stringify(user));
         console.log(response);
-        localStorage.setItem("user",response.data.user.username);
-        setUserData(response.data.user);
-        const { username, ...rest } = response.data.user;
-        alert(`Login successful! Welcome ${userData}! `);
-        console.log(userData);
-        console.log("Username", username);
-        console.log("Rest", rest);
-
-        setLoginError(''); // Clear any previous error message
-      // Optionally handle success message or redirect to profile page
-       // navigate('/'); // Navigate to profile page
-      }
-      else {
-        console.log('Login failed:', response);
-        setLoginError('Login failed. Please try again.');
-
-      }
-    } catch (error) {
-      console.error('There was an error Logging in!', error);
-      // Handle error response
-      if (error.response && error.response.data && error.response.data.status) {
-        setLoginError(error.response.data.status.message);
+        alert(`Login successful! Welcome ${user.username}!`);
+        navigate('/profile');
       } else {
-        setLoginError('An error occurred during Login.');
-        console.log('Login failed:', loginError);
+        setLoginError('Login failed. Please try again.');
       }
-    }
+      } catch (error) {
+      console.error('There was an error Logging in!', error);
+      setLoginError('An error occurred during Login.');
+     }
+
   };
-
-  const handleLogout = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    alert("Tokens have been removed");
-    navigate("/Login");
-  }
-
 
   return (
     <div className="sign-up-form">
@@ -83,11 +58,11 @@ export const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={handleLogin}>Logout</button>
-        <button onClick={handleLogout}>Logout</button>
+        <button onClick={handleLogin}>Login</button>
       </form>
+      {loginError && <p>{loginError}</p>}
     </div>
   );
-};
+}
 
 export default Login;

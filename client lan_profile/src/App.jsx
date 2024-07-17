@@ -9,24 +9,38 @@ import BlogPostForm from './componemts/posts/BlogPostForm'
 import SigninPage from './componemts/pages/SigninPage'
 import SignupForm from './componemts/pages/SignupForm'
 import Login from './componemts/pages/Login'
+import { AuthProvider } from './api/AuthProvider'
+import ProtectedRoute from './componemts/ProtectedRoute'
+
 
 function App() {
+  const [avatar, setAvatar] = useState(null)
+
 
 
   return (
-    <Router>
-      <Routes>
-        <Route element={<Layout/>} >
-          <Route path="/" element={<PostsList/>} />
-          <Route path="/home" element={<Home/>} />
-          <Route path="/profile" element={<Profile/>}/>
-          <Route path="/new" element={<BlogPostForm/>}/>
-          <Route path="/users/sign_in" element={<SigninPage/>}/>
-          <Route path="/users/sign_up" element={<SignupForm/>}/>
-          <Route path="/login" element={<Login/>}/>
-        </Route>
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route element={<Layout avatar={avatar} setAvatar={setAvatar}/>} >
+            <Route path="/" element={<PostsList/>} />
+            <Route path="/home" element={<Home/>} />
+            <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            }
+          />
+            <Route path="/new" element={<BlogPostForm/>}/>
+            <Route path="/users/sign_in" element={<SigninPage/>}/>
+            <Route path="/users/sign_up" element={<SignupForm/>}/>
+            <Route path="/login" element={<Login/>}/>
+          </Route>
+        </Routes>
+      </Router>
+    </AuthProvider>
   )
 }
 export default App

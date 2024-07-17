@@ -52,9 +52,8 @@ gem "sassc-rails"
 gem "rack-cors"
 gem 'faker'
 gem 'devise-jwt'
-gem 'cloudinary', '~> 1.15.0'
 gem 'jsonapi-serializer'
-
+gem 'cloudinary'
 
 group :development, :test do
   gem "dotenv-rails"

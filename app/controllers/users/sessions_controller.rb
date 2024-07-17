@@ -8,20 +8,20 @@ class Users::SessionsController < Devise::SessionsController
     user = User.find_by(email: sign_in_params[:email])
 
     if user && user.valid_password?(sign_in_params[:password])
-      token = JWT.encode({ sub: user.id }, Rails.application.secret_key_base)
+      token = user.generate_jwt
       response.headers['Authorization'] = "Bearer #{token}"
-      render json: { message: 'Logged in successfully message sessions#create', user: user }, status: :ok
+      render json: { message: 'Logged in successfully sessions#create', user: user }, status: :ok
       @current_user = user
     else
       render json: { error: 'Invalid email or password' }, status: :unauthorized
     end
-  end
+  end\
 
   private
 
-  def respond_with(resource, _opts = {})
-    render json: { message: 'Logged in sucessfully.', data: resource }, status: :ok
-  end
+ # def respond_with(resource, _opts = {})
+ #   render json: { message: 'Logged in sucessfully sessions#repondwith.', data: resource }, status: :ok
+ # end
 
   def respond_to_on_destroy
     if request.headers['Authorization'].present?

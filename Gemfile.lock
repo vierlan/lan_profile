@@ -342,7 +342,7 @@ DEPENDENCIES
   bootsnap
   bootstrap (~> 5.2)
   capybara
-  cloudinary (~> 1.15.0)
+  cloudinary
   debug
   devise
   devise-jwt
