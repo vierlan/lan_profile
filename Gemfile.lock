@@ -85,6 +85,7 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
+    ast (2.4.2)
     autoprefixer-rails (10.4.16.0)
       execjs (~> 2)
     aws_cf_signer (0.1.3)
@@ -98,6 +99,7 @@ GEM
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 2.11.8, < 3)
     builder (3.3.0)
+    byebug (11.1.3)
     capybara (3.40.0)
       addressable
       matrix
@@ -110,6 +112,7 @@ GEM
     cloudinary (1.15.0)
       aws_cf_signer
       rest-client
+    coderay (1.1.3)
     concurrent-ruby (1.3.3)
     connection_pool (2.4.1)
     crass (1.0.6)
@@ -169,10 +172,12 @@ GEM
     jbuilder (2.12.0)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    json (2.7.2)
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
     jwt (2.8.2)
       base64
+    language_server-protocol (3.17.0.3)
     logger (1.6.0)
     loofah (2.22.0)
       crass (~> 1.0.2)
@@ -184,6 +189,7 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
+    method_source (1.1.0)
     mime-types (3.5.2)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2024.0604)
@@ -209,8 +215,18 @@ GEM
     nokogiri (1.16.6-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    parallel (1.25.1)
+    parser (3.3.4.0)
+      ast (~> 2.4.1)
+      racc
     pg (1.5.6)
     popper_js (2.11.8)
+    pry (0.14.2)
+      coderay (~> 1.1)
+      method_source (~> 1.0)
+    pry-byebug (3.10.1)
+      byebug (~> 11.0)
+      pry (>= 0.13, < 0.15)
     psych (5.1.2)
       stringio
     public_suffix (6.0.0)
@@ -256,6 +272,7 @@ GEM
       rake (>= 12.2)
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
+    rainbow (3.1.1)
     rake (13.2.1)
     rdoc (6.7.0)
       psych (>= 4.0.0)
@@ -276,6 +293,20 @@ GEM
       netrc (~> 0.8)
     rexml (3.3.0)
       strscan
+    rubocop (1.65.0)
+      json (~> 2.3)
+      language_server-protocol (>= 3.17.0)
+      parallel (~> 1.10)
+      parser (>= 3.3.0.2)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 2.4, < 3.0)
+      rexml (>= 3.2.5, < 4.0)
+      rubocop-ast (>= 1.31.1, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 2.4.0, < 3.0)
+    rubocop-ast (1.31.3)
+      parser (>= 3.3.1.0)
+    ruby-progressbar (1.13.0)
     rubyzip (2.3.2)
     sassc (2.4.0)
       ffi (~> 1.9)
@@ -311,6 +342,7 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    unicode-display_width (2.5.0)
     warden (1.2.9)
       rack (>= 2.0.9)
     warden-jwt_auth (0.9.0)
@@ -354,10 +386,12 @@ DEPENDENCIES
   jbuilder
   jsonapi-serializer
   pg (~> 1.1)
+  pry-byebug
   puma (>= 5.0)
   rack-cors
   rails (~> 7.1.3, >= 7.1.3.2)
   redis (>= 4.0.1)
+  rubocop (~> 1.65)
   sassc-rails
   selenium-webdriver
   simple_form!

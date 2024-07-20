@@ -1,0 +1,132 @@
+[1m[1;34mActiveSupport::ToJsonWithActiveSupportEncoder#methods[0m[0m: to_json
+[1m[1;34mActiveSupport::Dependencies::RequireDependency#methods[0m[0m: require_dependency
+[1m[1;34mActiveSupport::Configurable#methods[0m[0m: config
+[1m[1;34mAbstractController::Base#methods[0m[0m: 
+  action_methods  action_name=       controller_path  response_body
+  action_name     available_action?  inspect        
+[1m[1;34mActionController::Metal#methods[0m[0m: 
+  content_type     headers     middleware_stack   request        response=       set_request!   to_a
+  content_type=    location    middleware_stack=  request=       response_body=  set_response!
+  controller_name  location=   middleware_stack?  reset_session  response_code   status       
+  dispatch         media_type  performed?         response       session         status=      
+[1m[1;34mActionView::ViewPaths#methods[0m[0m: 
+  _prefixes       append_view_path    formats   locale   lookup_context     template_exists?
+  any_templates?  details_for_lookup  formats=  locale=  prepend_view_path  view_paths      
+[1m[1;34mAbstractController::Rendering#methods[0m[0m: view_assigns
+[1m[1;34mActionDispatch::Routing::PolymorphicRoutes#methods[0m[0m: 
+  edit_polymorphic_path  new_polymorphic_path  polymorphic_path
+  edit_polymorphic_url   new_polymorphic_url   polymorphic_url 
+[1m[1;34mActionDispatch::Routing::UrlFor#methods[0m[0m: full_url_for  route_for  url_for
+[1m[1;34mActionController::UrlFor#methods[0m[0m: url_options
+[1m[1;34mActiveSupport::Benchmarkable#methods[0m[0m: benchmark
+[1m[1;34mActionController::Redirecting#methods[0m[0m: 
+  _compute_redirect_to_location  redirect_back  redirect_back_or_to  url_from
+[1m[1;34mActionView::Rendering#methods[0m[0m: 
+  process  rendered_format  view_context  view_context_class  view_renderer
+[1m[1;34mActionController::Rendering#methods[0m[0m: render_to_string
+[1m[1;34mActionController::Renderers#methods[0m[0m: 
+  _render_to_body_with_renderer  _render_with_renderer_json          _render_with_renderer_xml
+  _render_with_renderer_js       _render_with_renderer_turbo_stream  render_to_body           
+[1m[1;34mActionController::Head#methods[0m[0m: head
+[1m[1;34mActionController::ConditionalGet#methods[0m[0m: 
+  expires_in  expires_now  fresh_when  http_cache_forever  no_store  stale?
+[1m[1;34mActionController::BasicImplicitRender#methods[0m[0m: send_action
+[1m[1;34mActionController::StrongParameters#methods[0m[0m: params  params=
+[1m[1;34mActiveSupport::Callbacks#methods[0m[0m: run_callbacks
+[1m[1;34mActiveSupport::Rescuable#methods[0m[0m: handler_for_rescue  rescue_with_handler
+[1m[1;34mActionController::Rescue#methods[0m[0m: show_detailed_exceptions?
+[1m[1;34mActionController::Instrumentation#methods[0m[0m: 
+  redirect_to  render  send_data  send_file  view_runtime  view_runtime=
+[1m[1;34mActionController::RespondWith#methods[0m[0m: respond_with
+[1m[1;34mActionDispatch::Routing::RouteSet::MountedHelpers#methods[0m[0m: _main_app  main_app
+[1m[1;34mActiveRecord::Railties::ControllerRuntime#methods[0m[0m: db_runtime  db_runtime=
+[1m[1;34mAbstractController::Helpers#methods[0m[0m: _helpers
+[1m[1;34mActionController::Helpers#methods[0m[0m: helpers
+[1m[1;34mActionController::ImplicitRender#methods[0m[0m: default_render  method_for_action
+[1m[1;34mDevise::Controllers::SignInOut#methods[0m[0m: 
+  bypass_sign_in  sign_in  sign_out  sign_out_all_scopes  signed_in?
+[1m[1;34mDevise::Controllers::StoreLocation#methods[0m[0m: store_location_for  stored_location_for
+[1m[1;34mDevise::Controllers::Helpers#methods[0m[0m: 
+  after_sign_in_path_for        devise_parameter_sanitizer  request_format         user_session   
+  after_sign_out_path_for       handle_unverified_request   sign_in_and_redirect   user_signed_in?
+  allow_params_authentication!  is_flashing_format?         sign_out_and_redirect  warden         
+  devise_controller?            is_navigational_format?     signed_in_root_path  
+[1m[1;34mDevise::Controllers::UrlHelpers#methods[0m[0m: 
+  cancel_registration_path  edit_password_url       new_registration_path  password_url     
+  cancel_registration_url   edit_registration_path  new_registration_url   registration_path
+  destroy_session_path      edit_registration_url   new_session_path       registration_url 
+  destroy_session_url       new_password_path       new_session_url        session_path     
+  edit_password_path        new_password_url        password_path          session_url      
+[1m[1;34mActionController::API#methods[0m[0m: 
+  __callbacks                    default_url_options=  mimes_for_respond_to=             
+  __callbacks?                   default_url_options?  mimes_for_respond_to?             
+  _helper_methods                etaggers              raise_on_missing_callback_actions 
+  _helper_methods=               etaggers=             raise_on_missing_callback_actions=
+  _helper_methods?               etaggers?             raise_on_open_redirects           
+  _process_action_callbacks      helpers_path          raise_on_open_redirects=          
+  _renderers                     helpers_path=         rescue_handlers                   
+  _renderers=                    helpers_path?         rescue_handlers=                  
+  _renderers?                    include_all_helpers   rescue_handlers?                  
+  _run_process_action_callbacks  include_all_helpers=  responder                         
+  _wrapper_options               include_all_helpers?  responder=                        
+  _wrapper_options=              logger                responder?                        
+  _wrapper_options?              logger=             
+  default_url_options            mimes_for_respond_to
+[1m[1;34m#<Module:0x00007f2bfd7df980>#methods[0m[0m: 
+  api_v1_blog_post_url                          rails_health_check_url                 
+  api_v1_blog_posts_url                         rails_info_properties_url              
+  api_v1_current_user_url                       rails_info_routes_url                  
+  cancel_user_registration_url                  rails_info_url                         
+  destroy_user_session_url                      rails_mailers_url                      
+  edit_api_v1_blog_post_url                     rails_mailgun_inbound_emails_url       
+  edit_user_password_url                        rails_mandrill_inbound_emails_url      
+  edit_user_registration_url                    rails_mandrill_inbound_health_check_url
+  new_api_v1_blog_post_url                      rails_postmark_inbound_emails_url      
+  new_rails_conductor_inbound_email_source_url  rails_relay_inbound_emails_url         
+  new_rails_conductor_inbound_email_url         rails_representation_url               
+  new_user_password_url                         rails_sendgrid_inbound_emails_url      
+  new_user_registration_url                     rails_service_blob_proxy_url           
+  new_user_session_url                          rails_service_blob_url                 
+  rails_blob_representation_proxy_url           rails_storage_proxy_url                
+  rails_blob_representation_url                 rails_storage_redirect_url             
+  rails_blob_url                                root_url                               
+  rails_conductor_inbound_email_incinerate_url  turbo_recede_historical_location_url   
+  rails_conductor_inbound_email_reroute_url     turbo_refresh_historical_location_url  
+  rails_conductor_inbound_email_sources_url     turbo_resume_historical_location_url   
+  rails_conductor_inbound_email_url             update_rails_disk_service_url          
+  rails_conductor_inbound_emails_url            user_password_url                      
+  rails_direct_uploads_url                      user_registration_url                  
+  rails_disk_service_url                        user_session_url                       
+[1m[1;34m#<Module:0x00007f2bfd7df958>#methods[0m[0m: 
+  api_v1_blog_post_path                          rails_health_check_path                 
+  api_v1_blog_posts_path                         rails_info_path                         
+  api_v1_current_user_path                       rails_info_properties_path              
+  cancel_user_registration_path                  rails_info_routes_path                  
+  destroy_user_session_path                      rails_mailers_path                      
+  edit_api_v1_blog_post_path                     rails_mailgun_inbound_emails_path       
+  edit_user_password_path                        rails_mandrill_inbound_emails_path      
+  edit_user_registration_path                    rails_mandrill_inbound_health_check_path
+  new_api_v1_blog_post_path                      rails_postmark_inbound_emails_path      
+  new_rails_conductor_inbound_email_path         rails_relay_inbound_emails_path         
+  new_rails_conductor_inbound_email_source_path  rails_representation_path               
+  new_user_password_path                         rails_sendgrid_inbound_emails_path      
+  new_user_registration_path                     rails_service_blob_path                 
+  new_user_session_path                          rails_service_blob_proxy_path           
+  rails_blob_path                                rails_storage_proxy_path                
+  rails_blob_representation_path                 rails_storage_redirect_path             
+  rails_blob_representation_proxy_path           root_path                               
+  rails_conductor_inbound_email_incinerate_path  turbo_recede_historical_location_path   
+  rails_conductor_inbound_email_path             turbo_refresh_historical_location_path  
+  rails_conductor_inbound_email_reroute_path     turbo_resume_historical_location_path   
+  rails_conductor_inbound_email_sources_path     update_rails_disk_service_path          
+  rails_conductor_inbound_emails_path            user_password_path                      
+  rails_direct_uploads_path                      user_registration_path                  
+  rails_disk_service_path                        user_session_path                       
+[1m[1;34m#<Module:0x00007f2bfd64fa48>#methods[0m[0m: _routes
+[1m[1;34mApi::V1::BlogPostsController#methods[0m[0m: create  destroy  index  new  show
+[1m[1;34minstance variables[0m[0m: 
+  [0;34m@_action_name[0m  [0;34m@_lookup_context[0m  [0;34m@_request[0m   [0;34m@_response_body[0m  [0;34m@_url_options[0m   [0;34m@current_user[0m   
+  [0;34m@_db_runtime[0m   [0;34m@_params[0m          [0;34m@_response[0m  [0;34m@_routes[0m         [0;34m@_view_runtime[0m  [0;34m@rendered_format[0m
+[1m[1;34mclass variables[0m[0m: 
+  [1;34m@@_deprecated_constants[0m  [1;34m@@raise_on_missing_callback_actions[0m  [1;34m@@raise_on_open_redirects[0m
+[1m[1;34mlocals[0m[0m: _  __  _dir_  _ex_  _file_  _in_  _out_  pry_instance

@@ -20,7 +20,7 @@ class User < ApplicationRecord
       sub: id.to_i,
        iat: Time.now.to_i,
        exp: 24.hours.from_now.to_i
-        }, Rails.application.secret_key_base)
+        }, Rails.application.credentials.devise_jwt_secret_key!)
   end
 
 end

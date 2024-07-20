@@ -1,3 +1,4 @@
+//client lan_profile/src/componemts/pages/Login.jsx
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -5,9 +6,10 @@ import AuthContext from '../../api/AuthProvider';
 
 function Login() {
   const { setAuth } = useContext(AuthContext);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("");a
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
+  const [avatar, setAvatar] = useState(null);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -24,8 +26,9 @@ function Login() {
         setAuth({ user, token });
         setEmail('');
         setPassword('');
+        setAvatar('');
         localStorage.setItem('token', token);
-        localStorage.setItem('loginuser', user);
+        localStorage.setItem('avatar_url:', JSON.stringify(user.avatar_url));
         localStorage.setItem('user_string', JSON.stringify(user));
         console.log(response);
         alert(`Login successful! Welcome ${user.username}!`);

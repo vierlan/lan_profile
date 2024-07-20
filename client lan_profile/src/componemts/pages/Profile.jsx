@@ -1,3 +1,4 @@
+client lan_profile/src/componemts/pages/Profile.jsx
 import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../api/AuthProvider';
 

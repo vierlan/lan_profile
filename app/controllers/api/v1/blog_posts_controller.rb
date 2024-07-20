@@ -16,7 +16,10 @@ class Api::V1::BlogPostsController < ApplicationController
   end
 
   def create
-    @blog_post = current_user.blog_posts.new(blog_post_params)
+
+    @blog_post = BlogPost.new(blog_post_params)
+    @blog_post.user = current_user
+    binding.pry
     if @blog_post.save
       render json: @blog_post, status: :created
     else
@@ -33,7 +36,7 @@ class Api::V1::BlogPostsController < ApplicationController
   private
 
   def blog_post_params
-    params.require(:blog_post).permit(:title, content: [:body, :subheader])
+    params.require(:blog_post).permit(:title, content: [:type, :content])
   end
 
 end

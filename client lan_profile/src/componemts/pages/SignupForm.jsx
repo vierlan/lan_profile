@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-//import AvatarUploader from './AvatarUploader';
+import AvatarUploader from './AvatarUploader';
 import '../../assets/stylesheets/signupForm.scss';
 import AuthContext from '../../api/AuthProvider';
 
@@ -11,7 +11,7 @@ const SignUpForm = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [username, setUsername] = useState('');
-  //const [avatar, setAvatar] = useState(null);
+  const [avatar, setAvatar] = useState(null);
   const [passwordsMatchError, setPasswordsMatchError] = useState(false);
   const [signupError, setSignupError] = useState('');
   const { setAuth } = useContext(AuthContext);
@@ -31,7 +31,7 @@ const SignUpForm = () => {
           email,
           password,
           username,
-        //  avatar_url: avatar
+         avatar_url: avatar
         }
       });
 
@@ -108,7 +108,7 @@ const SignUpForm = () => {
           required
         />
         {passwordsMatchError && <div className="error-message">Passwords do not match</div>}
-          {/*<AvatarUploader onAvatarChange={setAvatar} />*/}
+          {<AvatarUploader onAvatarChange={setAvatar} />}
         <button type="submit" onClick={handleSignup}>Sign Up</button>
       </form>
     {/*{avatar ? <p>{avatar}</p> : null}*/ }

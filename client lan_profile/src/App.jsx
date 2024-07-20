@@ -1,3 +1,4 @@
+client lan_profile/src/App.jsx
 import { useState } from 'react'
 import './App.css'
 import PostsList from './componemts/posts/PostsList'
@@ -14,15 +15,15 @@ import ProtectedRoute from './componemts/ProtectedRoute'
 
 
 function App() {
-  const [avatar, setAvatar] = useState(null)
+  const [avatarUrl, setAvatarUrl] = useState(null)
 
 
 
   return (
-    <AuthProvider>
+    <AuthProvider avatarUrl={avatarUrl} setAvatarUrl={setAvatarUrl}>
       <Router>
         <Routes>
-          <Route element={<Layout avatar={avatar} setAvatar={setAvatar}/>} >
+          <Route element={<Layout />} >
             <Route path="/" element={<PostsList/>} />
             <Route path="/home" element={<Home/>} />
             <Route

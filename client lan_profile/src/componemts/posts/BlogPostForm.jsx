@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import AuthContext from '../../api/AuthProvider';
 
 const BlogPostForm = () => {
+  const { auth } = useContext(AuthContext);
+  const [userData, setUserData] = useState(null);
   const [title, setTitle] = useState('');
   const [sections, setSections] = useState([]);
   const [error, setError] = useState(null);
   const token = localStorage.getItem('token');
+
 
   const handleAddSection = (type) => {
     setSections([...sections, { type, content: '' }]);
@@ -23,21 +27,20 @@ const BlogPostForm = () => {
     const blogPost = { title, content: sections };
 
     try {
-      // const token = localStorage.getItem('authToken'); // Adjust based on your auth setup
       console.log(blogPost);
       const response = await axios.post('http://localhost:3000/api/v1/blog_posts', blogPost, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Adjust based on your auth setup
+          'Authorization': `Bearer ${token}`,
         },
       });
 
       if (response.status.toString().startsWith("20")) {
-        // Handle successful creation (e.g., redirect or display success message)
+
         console.log('Blog post created successfully', response.data);
       }
     } catch (error) {
-      // Handle error (e.g., set error state to display error message)
+
       setError(error.response ? error.response.data : 'An error occurred');
     }
   };

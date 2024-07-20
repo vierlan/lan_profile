@@ -3,9 +3,11 @@ import './Navbar.css';
 import { Link } from 'react-router-dom';
 import lan from '../assets/images/lan.png';
 import AuthContext from '../api/AuthProvider';
+import FetchAvatar from '../api/FetchAvatar';
 
 function Navbar() {
-  const { auth, logout } = useContext(AuthContext);
+  const { auth, logout, avatar } = useContext(AuthContext);
+
 
   return (
     <div className="Navbar">
@@ -24,11 +26,7 @@ function Navbar() {
         )}
       </div>
       <div className="rightside">
-      {auth?.avatar_url ? (
-          <img src={auth.avatar_url} alt="avatar" className="avatar" />
-        ) : (
-          <img src={lan} alt="avatar" className="avatar" />
-        )}
+          <FetchAvatar/>
       </div>
     </div>
   );

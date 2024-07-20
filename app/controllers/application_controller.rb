@@ -22,7 +22,7 @@ class ApplicationController < ActionController::API
     return render json: { error: 'Token missing' }, status: :unauthorized unless token
 
     begin
-      payload = JWT.decode(token, Rails.application.secret_key_base).first
+      payload = JWT.decode(token, Rails.application.credentials.devise_jwt_secret_key!).first
       @current_user = User.find(payload['sub'])
     rescue JWT::DecodeError, ActiveRecord::RecordNotFound
       render json: { error: 'Invalid token from application controller' }, status: :unauthorized
