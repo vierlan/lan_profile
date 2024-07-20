@@ -7,14 +7,14 @@ import AuthContext from '../../api/AuthProvider';
 
 
 const SignUpForm = () => {
+  const { setAuth, setAvatarUrl } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [username, setUsername] = useState('');
-  const [avatar, setAvatar] = useState(null);
+  const [avatar, setAvatar] = useState('');
   const [passwordsMatchError, setPasswordsMatchError] = useState(false);
   const [signupError, setSignupError] = useState('');
-  const { setAuth } = useContext(AuthContext);
   //const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
@@ -40,19 +40,14 @@ const SignUpForm = () => {
         const token = response.headers.authorization.split(' ')[1];
         const user = response.data.user;
         setAuth({ user, token });
+        setAvatarUrl(user.avatar_url);
         setEmail('');
         setPassword('');
         localStorage.setItem('token', token);
-        localStorage.setItem('loginuser', user);
         localStorage.setItem('user_string', JSON.stringify(user));
         console.log(response);
-        alert(`Login successful! Welcome ${user.username}!`);
+        alert(`Signup successful! Welcome ${user.username}!`);
         navigate('/profile');
-
-
-
-
-
 
 
         console.log('Signup successful!');

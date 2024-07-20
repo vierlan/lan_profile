@@ -1,4 +1,4 @@
-client lan_profile/src/componemts/pages/Profile.jsx
+// src/components/pages/Profile.jsx
 import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../api/AuthProvider';
 
@@ -9,23 +9,16 @@ function Profile() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log("profile useeffect auth:", auth);
-    if (auth.userData) {
-      setUserData(auth.userData);
-      setLoading(false);
-      console.log("auth user data:", auth.userData);
-    } else {
-      console.log("fetch user data from server with auth token:", auth.token);
+    if (auth && auth.token) {
       const fetchUserData = async () => {
         try {
           const response = await fetch('http://localhost:3000/api/v1/current_user', {
             headers: {
               'Authorization': `Bearer ${auth.token}`,
-              'Content-Type': 'application/json'
-            }
+              'Content-Type': 'application/json',
+            },
           });
-          console.log("fetch user data response:", response);
-          if (response.status===200) {
+          if (response.status === 200) {
             const data = await response.json();
             setUserData(data);
           } else {
@@ -40,7 +33,7 @@ function Profile() {
 
       fetchUserData();
     }
-  }, [auth.token, auth.userData]); // Depend on auth.userData as well
+  }, [auth]);
 
   if (loading) {
     return <div>Loading...</div>;

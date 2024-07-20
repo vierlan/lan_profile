@@ -1,32 +1,31 @@
-//client lan_profile/src/api/FetchAvatar.jsx
+// src/api/FetchAvatar.jsx
+import React, { useContext, useEffect } from 'react';
 import AuthContext from './AuthProvider';
-import {AdvancedImage} from '@cloudinary/react';
-import {Cloudinary} from "@cloudinary/url-gen";
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 import lan from '../assets/images/lan.png';
 
-const FetchAvatar = ({avatarUrl, setAvatarUrl = () => {}, auth }) => {
+const FetchAvatar = () => {
+  const { auth, avatarUrl } = useContext(AuthContext);
 
-  // Use the image with public ID, 'front_face'.
-  const myImage = localStorage.getItem('avatar_url:');
-  console.log(myImage)
-  setAvatarUrl(myImage);
-  console.log(avatarUrl);
+  useEffect(() => {
+    // Optional: additional logic if needed
+  }, [avatarUrl]);
 
-  return (<div className="avatar">
-    {auth && avatarUrl ? (
-        <img src={myImage} alt="avatar" className="avatar" />
+  return (
+    <div className="avatar">
+      {auth && avatarUrl ? (
+        <img src={avatarUrl} alt="avatar" className="avatar" />
       ) : (
-        <img src={lan} alt="avatar" className="avatar" />
+        <img src={lan} alt="default avatar" className="avatar" />
       )}
     </div>
-  )
+  );
 }
 
 FetchAvatar.propTypes = {
-  avatarUrl: Proptypes.string,
-  setAvatarUrl: Proptypes.func,
-  auth: Proptypes.object
+  avatarUrl: PropTypes.string,
+  setAvatarUrl: PropTypes.func,
+  auth: PropTypes.object
 }
 
-export default FetchAvatar
+export default FetchAvatar;

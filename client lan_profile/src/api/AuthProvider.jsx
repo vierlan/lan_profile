@@ -1,40 +1,39 @@
-// src/api/AuthProvider.js// src/api/AuthProvider.jsx
+// src/api/AuthProvider.jsx
 import React, { createContext, useState, useEffect } from 'react';
-import {Proptypes} from 'prop-types';
+import PropTypes from 'prop-types';
 
 const AuthContext = createContext();
 
-export const AuthProvider = ({ children, avatarUrl, setAvatarUrl }) => {
+export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(null);
-  
+  const [avatarUrl, setAvatarUrl] = useState(null);
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     const user = localStorage.getItem('user_string');
-    const avatarUrl = localStorage.getItem('avatarUrl:');
-    setAvatarUrl(avatarUrl)
     if (token && user) {
-      setAuth({ token, user });
-      setAvatarUrl(user.avatarUrl);
-      console.log(user.avatarUrl);
-      console.log("auth1", auth);
+      const parsedUser = JSON.parse(user);
+      setAuth({ token, user: parsedUser });
+      setAvatarUrl(parsedUser.avatar_url);
     }
-    console.log("auth2")
   }, []);
 
   const logout = () => {
     setAuth(null);
     setAvatarUrl(null);
     localStorage.removeItem('token');
-    localStorage.removeItem('user');
-
+    localStorage.removeItem('user_string');
   };
 
   return (
-    <AuthContext.Provider value={{ auth, setAuth, logout, avatarUrl, setAvatarUrl}}>
+    <AuthContext.Provider value={{ auth, setAuth, logout, avatarUrl, setAvatarUrl }}>
       {children}
     </AuthContext.Provider>
   );
 }
 
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default AuthContext;
