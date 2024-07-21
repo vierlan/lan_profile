@@ -1,6 +1,8 @@
 // src/components/pages/Profile.jsx
 import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../api/AuthProvider';
+import Projects from '../posts/Projects';
+import ProfileData from '../posts/ProfileData';
 
 function Profile() {
   const { auth } = useContext(AuthContext);
@@ -44,14 +46,9 @@ function Profile() {
   }
 
   return (
-    <div>
-      <h1>Profile</h1>
-      {userData && (
-        <>
-          <p>Email: {userData.email}</p>
-          <p>Username: {userData.username}</p>
-        </>
-      )}
+    <div className="profile-page">
+      <ProfileData userData={userData}/>
+      <Projects />
     </div>
   );
 }

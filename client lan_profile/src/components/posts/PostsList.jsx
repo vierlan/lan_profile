@@ -46,7 +46,7 @@ function PostsList() {
 
       </div>
       <div className="right-container">
-        <div className="project-card">
+        <div className="blog-card">
           {/* Additional content here */}
         </div>
         <p>some text</p>
