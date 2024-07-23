@@ -15,6 +15,7 @@ function Navbar() {
         <Link to="/"><button>Home</button></Link>
         <Link to="/profile"><button>Profile</button></Link>
         <Link to="/new"><button>New Post</button></Link>
+        <Link to="/animations">Animations</Link>
         {!auth ? (
           <>
             <Link to="/users/sign_in"><button>Sign in</button></Link>

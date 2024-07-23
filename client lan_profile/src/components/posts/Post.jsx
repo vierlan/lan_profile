@@ -1,33 +1,25 @@
-import React from 'react'
-import pic from '../../assets/images/13.jpg'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-function Post({posts}) {
+function Post({ post }) {
+  // Ensure post.content is an array
+  const contentSections = Array.isArray(post.content) ? post.content : [];
+
   return (
-    <>
-       {posts.map((post) => (
-         <div className="blog-content" key={post.id}>
-           <div className='blog-image'>
-             <img src={pic} alt={post.title} />
-             {post.user && <p>Written by: {post.user.username}</p>}
-             <p>written on: {post.created_at} </p>
-           </div>
-           <div className='blog-text'>
-             <h2>{post.title}</h2>
-             <h4>{post.content.subheader}</h4>
-             <p>{post.content.body}</p> {/* Access the body field */}
-           </div>
-         </div>
-       ))}
-    </>
+    <div className="blog-content" key={post.id}>
+      {contentSections.map((section, index) => (
+        <div key={index}>
+          {section.type === 'subheader' && <h4>{section.content}</h4>}
+          {section.type === 'body' && <p>{section.content}</p>}
+          {section.type === 'image' && <img src={section.content} alt={`Image ${index}`} />}
+        </div>
+      ))}
+    </div>
   );
-
 }
 
 Post.propTypes = {
-  posts: PropTypes.array.isRequired
-}
+  post: PropTypes.object.isRequired,
+};
 
-
-
-export default Post
+export default Post;

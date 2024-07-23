@@ -12,6 +12,8 @@ import SignupForm from './components/pages/SignupForm';
 import Login from './components/pages/Login';
 import { AuthProvider } from './api/AuthProvider';
 import ProtectedRoute from './components/ProtectedRoute';
+import Animations from './components/pages/Animations';
+import PostDetail from './components/posts/PostDetail';
 
 function App() {
   const [avatarUrl, setAvatarUrl] = useState(null);
@@ -22,7 +24,9 @@ function App() {
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<PostsList />} />
+            <Route path="/posts/:postId" element={<PostDetail />} />
             <Route path="/home" element={<Home />} />
+            <Route path="/animations" element={<Animations />} />
             <Route
               path="/profile"
               element={

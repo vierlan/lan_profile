@@ -1,0 +1,46 @@
+.holster {
+  background-color: rgb(70,70,70);
+  font-family: monospace;
+}
+.container {
+  display: flex;
+  margin: 1em auto;
+  outline: 1px dashed lightgray;
+  flex: none;
+  overflow: auto;
+}
+.container.y {
+  width: 100%;
+  height:80vh;
+  overflow-x: hidden;
+}
+
+/* scroll-snap */
+
+.y.mandatory-scroll-snapping {
+  scroll-snap-type: y mandatory;
+}
+.y.proximity-scroll-snapping {
+  scroll-snap-type: y proximity;
+}
+
+.container > div {
+  text-align: center;
+  scroll-snap-align: center;
+  flex: none;
+}
+
+.y.container > div {
+  line-height: 256px;
+  font-size: 128px;
+  width: 100%;
+  height: 100vh;
+}
+
+/* coloration */
+.container > div:nth-child(even) {
+  background-color: #acacac75;
+}
+.container > div:nth-child(odd) {
+  background-color: #45865e;
+}

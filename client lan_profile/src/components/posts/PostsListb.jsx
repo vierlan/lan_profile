@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { API_URL } from '../../constants';
+import pic from '../../assets/images/10.jpg';
 import Post from './Post';
-import { Link } from 'react-router-dom';
 
 function PostsList() {
   const [posts, setPosts] = useState([]);
@@ -9,21 +9,26 @@ function PostsList() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    console.log('API_URL:', API_URL);  // Debug log
+
     async function fetchPosts() {
       try {
+        console.log('Fetching posts from:', API_URL);  // Debug log
         const response = await fetch('http://localhost:3000/api/v1/blog_posts', {
-          headers: {
-            'Accept': 'application/json',
-          },
+
+
+
         });
         if (response.ok) {
           const data = await response.json();
           setPosts(data);
+          console.log('Posts:', data);  // Debug log
         } else {
           throw response;
         }
       } catch (error) {
         setError('Error fetching data');
+        console.log('Error fetching data', error);
       } finally {
         setLoading(false);
       }
@@ -36,11 +41,10 @@ function PostsList() {
       <div className='blog-container'>
         {loading && <p>Loading...</p>}
         {error && <p>{error}</p>}
-        {posts.map((post) => (
-          <Link to={`/posts/${post.id}`} key={post.id}>
-            <Post post={post} />
-          </Link>
-        ))}
+        <Post
+          posts={posts}
+        />
+
       </div>
       <div className="right-container">
         <div className="blog-card">
