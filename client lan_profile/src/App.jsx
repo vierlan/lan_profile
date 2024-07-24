@@ -14,6 +14,7 @@ import { AuthProvider } from './api/AuthProvider';
 import ProtectedRoute from './components/ProtectedRoute';
 import Animations from './components/pages/Animations';
 import PostDetail from './components/posts/PostDetail';
+import ProjectCreate from './components/pages/ProjectCreate';
 
 function App() {
   const [avatarUrl, setAvatarUrl] = useState(null);
@@ -35,6 +36,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
+            <Route path="/newproject" element={<ProjectCreate />} />
             <Route path="/new" element={<BlogPostForm />} />
             <Route path="/users/sign_in" element={<SigninPage />} />
             <Route path="/users/sign_up" element={<SignupForm />} />

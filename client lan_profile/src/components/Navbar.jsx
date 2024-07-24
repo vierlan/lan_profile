@@ -15,9 +15,11 @@ function Navbar() {
         <Link to="/"><button>Home</button></Link>
         <Link to="/profile"><button>Profile</button></Link>
         <Link to="/new"><button>New Post</button></Link>
-        <Link to="/animations">Animations</Link>
+        <Link to="/animations"><button>Animations</button></Link>
+        <Link to="/newproject"><button>Add Project</button></Link>
         {!auth ? (
           <>
+            <Link to="/newproject"><button>Add Project</button></Link>
             <Link to="/users/sign_in"><button>Sign in</button></Link>
             <Link to="/users/sign_up"><button>Sign up</button></Link>
             <Link to="/login"><button>Login</button></Link>

@@ -3,12 +3,16 @@ class Api::V1::BlogPostsController < ApplicationController
 
   def index
     @blog_posts = BlogPost.all.order(created_at: :desc)
-    render json: @blog_posts
+    @technologies = Technology.all
+    render json: @blog_posts, include: [:user, :technologies]
   end
 
   def show
     @blog_post = BlogPost.find(params[:id])
-    render json: @blog_post
+    @technologies = @blog_post.technologies
+    @user = @blog_post.user
+    render json: @blog_post, include: [:user, :technologies]
+
   end
 
   def new
@@ -19,7 +23,6 @@ class Api::V1::BlogPostsController < ApplicationController
 
     @blog_post = BlogPost.new(blog_post_params)
     @blog_post.user = current_user
-    binding.pry
     if @blog_post.save
       render json: @blog_post, status: :created
     else

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_15_111149) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_24_205903) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_15_111149) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "blog_post_technologies", force: :cascade do |t|
+    t.bigint "blog_post_id", null: false
+    t.bigint "technology_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["blog_post_id"], name: "index_blog_post_technologies_on_blog_post_id"
+    t.index ["technology_id"], name: "index_blog_post_technologies_on_technology_id"
+  end
+
   create_table "blog_posts", force: :cascade do |t|
     t.string "title"
     t.string "category"
@@ -58,6 +67,36 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_15_111149) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["jti"], name: "index_jwt_denylists_on_jti"
+  end
+
+  create_table "project_technologies", force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.bigint "technology_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_project_technologies_on_project_id"
+    t.index ["technology_id"], name: "index_project_technologies_on_technology_id"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.string "content"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_projects_on_user_id"
+  end
+
+  create_table "technologies", force: :cascade do |t|
+    t.string "language"
+    t.string "operating_system"
+    t.string "database"
+    t.string "frameworks"
+    t.string "monitoring"
+    t.string "servers"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -78,5 +117,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_15_111149) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "blog_post_technologies", "blog_posts"
+  add_foreign_key "blog_post_technologies", "technologies"
   add_foreign_key "blog_posts", "users"
+  add_foreign_key "project_technologies", "projects"
+  add_foreign_key "project_technologies", "technologies"
+  add_foreign_key "projects", "users"
 end

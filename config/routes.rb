@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  namespace :api do
+    namespace :v1 do
+      get 'projects/index'
+      get 'projects/show'
+      get 'projects/new'
+      get 'projects/create'
+      get 'projects/destroy'
+    end
+  end
   get 'api/v1/current_user', to: 'api/v1/current_user#show'
   devise_for :users, path: '', path_names: {
     sign_in: 'login',
@@ -25,7 +34,7 @@ Rails.application.routes.draw do
  namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :blog_posts
-    #  resources :current_user
+      resources :projects
     end
   end
 end
