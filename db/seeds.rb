@@ -7,7 +7,7 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-3.times do
+2.times do
 
  User.create(
     email: Faker::Internet.email,
@@ -17,8 +17,27 @@
 end
 
 
-
+BlogPostTechnology.destroy_all
+ProjectTechnology.destroy_all
 BlogPost.destroy_all
+Technology.destroy_all
+Project.destroy_all
+
+
+
+
+images = [
+  "https://unsplash.com/photos/woman-sitting-in-front-of-desk-with-computer-monitor-and-keyboard-on-top-eAXpbb4vzKU",
+  "https://unsplash.com/photos/a-laptop-computer-sitting-on-top-of-a-white-table-N825pMIaG-0",
+  "https://unsplash.com/photos/a-bunch-of-wires-that-are-connected-to-each-other-E9L3dr2Dcmk",
+  "https://unsplash.com/photos/a-close-up-of-a-laptop-computer-with-a-micro-board-attached-to-it-GsiX1c51hGs",
+  "https://unsplash.com/photos/turned-on-gray-laptop-computer-XJXWbfSo2f0",
+  "https://unsplash.com/photos/turned-on-monitor-displaying-programming-language-u2Ru4QBXA5Q",
+  "https://unsplash.com/photos/macbook-pro-on-black-wooden-table-PNbDkQ2DDgM"
+]
+
+
+# Create BlogPost records
 
 posts = [
   {
@@ -68,9 +87,63 @@ posts.each do |post|
     user_id: User.pluck(:id).sample,
     content: post[:content]  # Directly assign the content hash
   )
+  blog.photo.attach(io: URI.open(images.sample), filename: 'blog_image.jpg')
+
   blog.save!
 end
 
+puts "BlogPosts Seeded Successfully!"
 
+# Create Technology records
+puts "Seeding Technologies..."
 
+technologies = {
+  languages: ["Python", "JavaScript", "Java", "Ruby", "C++", "C#", "PHP", "Swift", "Kotlin", "TypeScript"],
+  frameworks: ["React", "Angular", "Vue.js", "Django", "Ruby on Rails", "Spring Boot", "Laravel", "Express.js", "Flask", "ASP.NET"],
+  databases: ["MySQL", "PostgreSQL", "MongoDB", "SQLite", "Redis", "Oracle", "SQL Server", "Firebase", "Cassandra", "DynamoDB"],
+  monitoring: ["Git", "Docker", "Jenkins", "Kubernetes", "VS Code", "IntelliJ IDEA", "Eclipse", "Postman", "Jira", "Slack"]
+}
+technologies.each do |category, tech_list|
+  tech_list.each do |name|
+    case category
+    when :languages
+      Technology.find_or_create_by!(language: name)
+    when :frameworks
+      Technology.find_or_create_by!(frameworks: name)
+    when :databases
+      Technology.find_or_create_by!(database: name)
+    when :monitoring
+      Technology.find_or_create_by!(monitoring: name)
+    end
+  end
+end
+
+puts "Technologies Seeded Successfully!"
+
+# Create Project records
+puts "Seeding Projects..."
+
+projects = [
+  { name: "Portfolio Website", description: "Personal portfolio showcasing projects and skills", user_id: User.pluck(:id).sample, technology_ids: Technology.pluck(:id).sample(3) },
+  { name: "E-Commerce Platform", description: "Online marketplace for buying and selling products", user_id: User.pluck(:id).sample, technology_ids: Technology.pluck(:id).sample(3) },
+  { name: "Task Management App", description: "Web application for managing tasks and projects", user_id: User.pluck(:id).sample, technology_ids: Technology.pluck(:id).sample(3) },
+  { name: "Social Networking Site", description: "Connect with friends and share updates online", user_id: User.pluck(:id).sample, technology_ids: Technology.pluck(:id).sample(3) },
+  { name: "Recipe Sharing Platform", description: "Discover and share recipes with a community of food enthusiasts", user_id: User.pluck(:id).sample, technology_ids: Technology.pluck(:id).sample(3) }
+]
+
+projects.each do |project|
+  project = Project.new(
+    name: project[:name],
+    description: project[:description],
+    user_id: project[:user_id],
+    technology_ids: project[:technology_ids]
+  )
+  image_url = images.sample
+  image_file = URI.open(image_url)
+  project.photo.attach(io: image_file, filename: 'project_image.jpg')
+
+  project.save!
+end
+
+puts "Projects Seeded Successfully!"
 puts "Data Seeded Successfully!"
