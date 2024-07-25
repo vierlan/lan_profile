@@ -52,12 +52,13 @@ gem "sassc-rails"
 gem "rack-cors"
 gem 'faker'
 gem 'devise-jwt'
-gem 'cloudinary', '~> 1.15.0'
 gem 'jsonapi-serializer'
-
+gem 'cloudinary'
 
 group :development, :test do
   gem "dotenv-rails"
+  gem 'rubocop', '~> 1.65'
+  gem 'pry-byebug'
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mswin mswin64 mingw x64_mingw ]
 end

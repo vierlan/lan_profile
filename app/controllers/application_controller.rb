@@ -4,8 +4,8 @@ class ApplicationController < ActionController::API
   protected
 #
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:username])
-    devise_parameter_sanitizer.permit(:account_update, keys: %i[ username email password current_password])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :avatar_url])
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[ username email password current_password avatar_url])
   end
 
   #def authenticate_user!
@@ -17,13 +17,12 @@ class ApplicationController < ActionController::API
   #rescue JWT::DecodeError
   #  render json: { error: 'Unauthorized from application conroller' }, status: :unauthorized
   #end
-
   def authenticate_user!
     token = request.headers['Authorization']&.split(' ')&.last
     return render json: { error: 'Token missing' }, status: :unauthorized unless token
 
     begin
-      payload = JWT.decode(token, Rails.application.secret_key_base).first
+      payload = JWT.decode(token, Rails.application.credentials.devise_jwt_secret_key!).first
       @current_user = User.find(payload['sub'])
     rescue JWT::DecodeError, ActiveRecord::RecordNotFound
       render json: { error: 'Invalid token from application controller' }, status: :unauthorized

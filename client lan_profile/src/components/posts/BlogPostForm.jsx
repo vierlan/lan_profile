@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import AuthContext from '../../api/AuthProvider';
+import ImageUploader from './ImageUploader';
 
 const BlogPostForm = () => {
+  const { auth } = useContext(AuthContext);
   const [title, setTitle] = useState('');
   const [sections, setSections] = useState([]);
   const [error, setError] = useState(null);
+  const [blogImage, setBlogImage] = useState('');
+
   const token = localStorage.getItem('token');
 
   const handleAddSection = (type) => {
@@ -18,26 +23,27 @@ const BlogPostForm = () => {
     setSections(newSections);
   };
 
+  const handleImageUpload = (imageUrl) => {
+    setSections([...sections, { type: 'image', content: imageUrl }]);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const blogPost = { title, content: sections };
-
+    console.log(blogPost);
     try {
-      // const token = localStorage.getItem('authToken'); // Adjust based on your auth setup
-      console.log(blogPost);
       const response = await axios.post('http://localhost:3000/api/v1/blog_posts', blogPost, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Adjust based on your auth setup
+          'Authorization': `Bearer ${token}`,
         },
       });
 
       if (response.status.toString().startsWith("20")) {
-        // Handle successful creation (e.g., redirect or display success message)
         console.log('Blog post created successfully', response.data);
+        // Redirect to profile page or show success message
       }
     } catch (error) {
-      // Handle error (e.g., set error state to display error message)
       setError(error.response ? error.response.data : 'An error occurred');
     }
   };
@@ -63,6 +69,7 @@ const BlogPostForm = () => {
       </div>
       <button type="button" onClick={() => handleAddSection('subheader')}>Add Subheader</button>
       <button type="button" onClick={() => handleAddSection('body')}>Add Body</button>
+      <ImageUploader onImageUpload={handleImageUpload} />
       <button type="submit">Create Blog Post</button>
     </form>
   );
@@ -91,7 +98,6 @@ const SectionEditor = ({ section, onChange }) => {
           placeholder="Body"
         />
       );
-    // Add other cases for different section types
     default:
       return null;
   }

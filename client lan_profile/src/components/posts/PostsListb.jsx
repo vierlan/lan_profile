@@ -22,6 +22,7 @@ function PostsList() {
         if (response.ok) {
           const data = await response.json();
           setPosts(data);
+          console.log('Posts:', data);  // Debug log
         } else {
           throw response;
         }
@@ -46,7 +47,7 @@ function PostsList() {
 
       </div>
       <div className="right-container">
-        <div className="project-card">
+        <div className="blog-card">
           {/* Additional content here */}
         </div>
         <p>some text</p>
