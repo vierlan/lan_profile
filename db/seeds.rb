@@ -27,58 +27,65 @@ Project.destroy_all
 
 
 images = [
-  "https://unsplash.com/photos/woman-sitting-in-front-of-desk-with-computer-monitor-and-keyboard-on-top-eAXpbb4vzKU",
-  "https://unsplash.com/photos/a-laptop-computer-sitting-on-top-of-a-white-table-N825pMIaG-0",
-  "https://unsplash.com/photos/a-bunch-of-wires-that-are-connected-to-each-other-E9L3dr2Dcmk",
-  "https://unsplash.com/photos/a-close-up-of-a-laptop-computer-with-a-micro-board-attached-to-it-GsiX1c51hGs",
-  "https://unsplash.com/photos/turned-on-gray-laptop-computer-XJXWbfSo2f0",
-  "https://unsplash.com/photos/turned-on-monitor-displaying-programming-language-u2Ru4QBXA5Q",
-  "https://unsplash.com/photos/macbook-pro-on-black-wooden-table-PNbDkQ2DDgM"
+  "client lan_profile/src/assets/images/1.jpg",
+  "client lan_profile/src/assets/images/2.jpg",
+  "client lan_profile/src/assets/images/3.jpg",
+  "client lan_profile/src/assets/images/4.jpg",
+  "client lan_profile/src/assets/images/5.jpg",
+  "client lan_profile/src/assets/images/6.jpg",
+  "client lan_profile/src/assets/images/7.jpg",
+  "client lan_profile/src/assets/images/8.jpg",
+  "client lan_profile/src/assets/images/9.jpg"
 ]
 
 
 # Create BlogPost records
+
 
 posts = [
   {
     title: "Getting Started with Python: A Beginner's Guide",
-    content: {
-      subheader: "Choosing the Right Programming Language",
-      body: "Python is an excellent language for beginners due to its simplicity and versatility. Whether you're interested in web development, data analysis, or automation, Python has you covered. In this guide, we'll cover the basics of Python syntax, variables, loops, and functions. By the end, you'll have a solid foundation to start building your own projects."
-    }
+    content: [
+      { "type": "subheader", content: "Choosing the Right Programming Language" },
+      { "type": "body", content: "Python is an excellent language for beginners due to its simplicity and versatility. Whether you're interested in web development, data analysis, or automation, Python has you covered. In this guide, we'll cover the basics of Python syntax, variables, loops, and functions. By the end, you'll have a solid foundation to start building your own projects." }
+    ]
   },
   {
-    title: "Mastering JavaScript Fundamentals",
-    content: {
-      subheader: "Understanding Variables and Data Types",
-      body: "JavaScript is the backbone of web development, powering interactivity and user experience on the web. This guide dives into the fundamental concepts of JavaScript, including variables, data types, and operators. You'll learn how to manipulate data, control program flow with conditional statements, and create functions to encapsulate reusable code."
-    }
+    title: "Building a RESTful API with Node.js and Express",
+    content: [
+      { "type": "subheader", content: "Creating a RESTful API" },
+      { "type": "body", content: "Node.js and Express are a powerful combination for building web applications. In this tutorial, we'll walk through the process of creating a RESTful API with Node.js and Express. We'll cover topics such as routing, middleware, error handling, and testing. By the end, you'll have a fully functional API that you can use to power your own applications." }
+    ]
   },
   {
-    title: "HTML and CSS Essentials for Web Developers",
-    content: {
-      subheader: "Building Responsive Websites",
-      body: "HTML and CSS are the building blocks of the web. In this essential guide, we explore HTML tags and attributes for structuring content and CSS properties for styling. You'll learn how to create responsive layouts, enhance user interfaces with animations, and optimize your code for performance. Whether you're new to web development or brushing up on your skills, mastering HTML and CSS is a must."
-    }
+    title: "Introduction to React: Building Your First Application",
+    content: [
+      { "type": "subheader", content: "Getting Started with React" },
+      { "type": "body", content: "React is a popular JavaScript library for building user interfaces. In this tutorial, we'll walk through the process of creating your first React application. We'll cover topics such as components, props, state, and hooks. By the end, you'll have a working application that you can use as a starting point for your own projects." }
+    ]
   },
   {
-    title: "Introduction to Algorithms and Data Structures",
-    content: {
-      subheader: "Understanding Efficiency in Coding",
-      body: "Algorithms and data structures form the backbone of computer science and software engineering. This guide introduces key concepts such as arrays, linked lists, stacks, queues, and trees. You'll explore sorting and searching algorithms, understand algorithmic complexity, and learn how to apply these concepts to solve real-world problems efficiently."
-    }
+    title: "Mastering Git: A Comprehensive Guide to Version Control",
+    content: [
+      { "type": "subheader", content: "Understanding Version Control" },
+      { "type": "body", content: "Git is a powerful tool for managing your codebase and collaborating with others. In this guide, we'll cover the basics of Git, such as repositories, branches, commits, and merges. We'll also explore more advanced topics, such as rebasing, cherry-picking, and resolving conflicts. By the end, you'll have a solid understanding of Git and how to use it effectively in your projects." }
+    ]
   },
   {
-    title: "Learning Object-Oriented Programming with Java",
-    content: {
-      subheader: "Designing Scalable Applications",
-      body: "Java is renowned for its robustness and scalability, making it a top choice for building enterprise-level applications. This comprehensive guide delves into object-oriented programming principles such as classes, objects, inheritance, polymorphism, and encapsulation. You'll discover how to structure Java applications, manage dependencies with Maven, and deploy your projects."
-    }
+    title: "Getting Started with Docker: A Beginner's Guide",
+    content: [
+      { "type": "subheader", content: "Introduction to Docker" },
+      { "type": "body", content: "Docker is a powerful tool for containerizing your applications and running them in a consistent environment. In this guide, we'll cover the basics of Docker, such as containers, images, volumes, and networks. We'll also explore more advanced topics, such as Docker Compose, Docker Swarm, and Kubernetes. By the end, you'll have a solid foundation to start using Docker in your own projects." }
+    ]
+  },
+  {
+    title: "Automating Your Workflow with Jenkins: A Step-by-Step Guide",
+    content: [
+      { "type": "subheader", content: "Introduction to Jenkins" },
+      { "type": "body", content: "Jenkins is a powerful tool for automating your development workflow and ensuring the quality of your codebase. In this guide, we'll walk through the process of setting up Jenkins, creating jobs, and configuring pipelines. We'll also explore more advanced topics, such as plugins, credentials, and distributed builds. By the end, you'll have a fully functional Jenkins server that you can use to streamline your development process." }
+    ]
   }
 ]
-
-# Create BlogPost records
-puts "Seeding BlogPosts..."
 
 posts.each do |post|
   blog = BlogPost.new(
@@ -87,8 +94,12 @@ posts.each do |post|
     user_id: User.pluck(:id).sample,
     content: post[:content]  # Directly assign the content hash
   )
-  blog.photo.attach(io: URI.open(images.sample), filename: 'blog_image.jpg')
+  blog.content << { "type" => "image", "content" => images.sample }
+  image_content = blog.content.find { |c| c["type"] == "image" }
+  image_url = image_content ? image_content["content"] : nil
+  blog.upload_photo(image_url) if image_url.present?
 
+  puts "BlogPost: #{blog.title} - #{blog.photo_url}"
   blog.save!
 end
 
@@ -124,11 +135,12 @@ puts "Technologies Seeded Successfully!"
 puts "Seeding Projects..."
 
 projects = [
-  { name: "Portfolio Website", description: "Personal portfolio showcasing projects and skills", user_id: User.pluck(:id).sample, technology_ids: Technology.pluck(:id).sample(3) },
-  { name: "E-Commerce Platform", description: "Online marketplace for buying and selling products", user_id: User.pluck(:id).sample, technology_ids: Technology.pluck(:id).sample(3) },
-  { name: "Task Management App", description: "Web application for managing tasks and projects", user_id: User.pluck(:id).sample, technology_ids: Technology.pluck(:id).sample(3) },
-  { name: "Social Networking Site", description: "Connect with friends and share updates online", user_id: User.pluck(:id).sample, technology_ids: Technology.pluck(:id).sample(3) },
-  { name: "Recipe Sharing Platform", description: "Discover and share recipes with a community of food enthusiasts", user_id: User.pluck(:id).sample, technology_ids: Technology.pluck(:id).sample(3) }
+  { name: "Portfolio Website", description: "Personal portfolio showcasing projects and skills", content: "This was my personal portfoli project.", user_id: User.pluck(:id).sample, technology_ids: Technology.pluck(:id).sample(3) },
+  { name: "Blog Platform", description: "Web application for publishing articles and posts", content: "This is just some text to quickly fill in the parts that I'm not going to write at the moment.", user_id: User.pluck(:id).sample, technology_ids: Technology.pluck(:id).sample(3) },
+  { name: "E-Commerce Platform", description: "Online marketplace for buying and selling products", content: "This is just some text to quickly fill in the parts that I'm not going to write at the moment.", user_id: User.pluck(:id).sample, technology_ids: Technology.pluck(:id).sample(3) },
+  { name: "Task Management App", description: "Web application for managing tasks and projects", content: "This is just some text to quickly fill in the parts that I'm not going to write at the moment.", user_id: User.pluck(:id).sample, technology_ids: Technology.pluck(:id).sample(3) },
+  { name: "Social Networking Site", description: "Connect with friends and share updates online", content: "This is just some text to quickly fill in the parts that I'm not going to write at the moment.", user_id: User.pluck(:id).sample, technology_ids: Technology.pluck(:id).sample(3) },
+  { name: "Recipe Sharing Platform", description: "Discover and share recipes with a community of food enthusiasts", content: "This is just some text to quickly fill in the parts that I'm not going to write at the moment.", user_id: User.pluck(:id).sample, technology_ids: Technology.pluck(:id).sample(3) }
 ]
 
 projects.each do |project|
@@ -143,6 +155,14 @@ projects.each do |project|
   project.photo.attach(io: image_file, filename: 'project_image.jpg')
 
   project.save!
+
+  # Get the URL of the attached photo
+  photo_url = project.photo.url
+   puts "project: #{project.name} - #{image_url}"
+
+  # Use the photo_url in your API response or further processing
+  # For example, you can return it as JSON
+
 end
 
 puts "Projects Seeded Successfully!"

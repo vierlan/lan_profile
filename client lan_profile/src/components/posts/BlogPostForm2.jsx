@@ -1,16 +1,27 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import ImageUploader from './ImageUploader';
 import AuthContext from '../../api/AuthProvider';
+import ImageUploader from './ImageUploader';
+import { useNavigate } from 'react-router-dom';
+import {Cloudinary} from "@cloudinary/url-gen";
 
 const BlogPostForm = () => {
+  const [cloudName] = useState("drirqdfbt");
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName
+    }
+
+  });
+
+  const myImage = cld.image(publicID);
   const { auth } = useContext(AuthContext);
   const [title, setTitle] = useState('');
   const [sections, setSections] = useState([]);
   const [error, setError] = useState(null);
   const [blogImage, setBlogImage] = useState('');
   const navigate = useNavigate();
+  const token = localStorage.getItem('token');
 
   const handleAddSection = (type) => {
     setSections([...sections, { type, content: '' }]);
@@ -26,16 +37,14 @@ const BlogPostForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const blogPost = { title, content: sections, user_id: auth.user.id };
-    console.log('Blog post:', blogPost);
-    const token = auth.token;
-    console.log('Token:', token);
-
+    console.log(blogPost);
     try {
       if (blogImage) {
-        blogPost.content.push({ type: 'image', content: blogImage });
+        const imageUrl = cld.image(blogImage).toURL();
+        console.log('image url', imageUrl);
+        blogPost.content.push({ type: 'image', content: imageUrl });
       }
-      console.log('Blog post after URL append:', blogPost);
-
+      console.log('blogpost after url append', blogPost);
       const response = await axios.post('http://localhost:3000/api/v1/blog_posts', blogPost, {
         headers: {
           'Content-Type': 'application/json',
@@ -46,21 +55,41 @@ const BlogPostForm = () => {
       if (response.status.toString().startsWith("20")) {
         console.log('Blog post created successfully', response.data);
         alert('Blog post created successfully');
+
+        // Redirect to profile page or show success message
         navigate('/profile');
         setTitle('');
         setSections([]);
         setBlogImage('');
-      }
-      else {
-        setError(error.response ? error.response.data : 'An error occurred');
       }
     } catch (error) {
       setError(error.response ? error.response.data : 'An error occurred');
     }
   };
 
+
+  const uploadImageToCloudinary = async (blogImage) => {
+    console.log('Uploading image to Cloudinary:', blogImage);
+    const formData = new FormData();
+    formData.append('file', blogImage);
+    console.log('Form data1:', formData);
+    formData.append('upload_preset', import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET); // Use the Vite environment variable
+    console.log('Form data2:', formData);
+    try {
+      const response = await axios.post(import.meta.env.VITE_CLOUDINARY_URL, formData);
+      const imageUrl = response.data.secure_url;
+      console.log('Image uploaded successfully:', imageUrl);
+      return imageUrl;
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      throw error;
+    }
+  };
+
+
+
   return (
-    <form >
+    <form>
       {error && <div className="error">{error}</div>}
       <input
         type="text"
@@ -81,7 +110,7 @@ const BlogPostForm = () => {
       <button type="button" onClick={() => handleAddSection('subheader')}>Add Subheader</button>
       <button type="button" onClick={() => handleAddSection('body')}>Add Body</button>
       <ImageUploader setBlogImage={setBlogImage} />
-      <button type="submit" onSubmit={handleSubmit} >Create Blog Post</button>
+      <button type="submit" onClick={handleSubmit}>Create Blog Post</button>
     </form>
   );
 };
@@ -115,14 +144,7 @@ const SectionEditor = ({ section, onChange }) => {
           <input
             type="file"
             accept="image/jpeg, image/png"
-            onChange={(e) => {
-              const file = e.target.files[0];
-              const reader = new FileReader();
-              reader.onloadend = () => {
-                onChange(reader.result);
-              };
-              reader.readAsDataURL(file);
-            }}
+            onChange={handleChange}
           />
           {section.content && <img src={section.content} alt="Blog post" />}
         </div>

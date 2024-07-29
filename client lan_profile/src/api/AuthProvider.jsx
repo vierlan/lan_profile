@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
       const parsedUser = JSON.parse(user);
       setAuth({ token, user: parsedUser });
       setAvatarUrl(parsedUser.avatar_url);
+      console.log('User loaded from localStorage:', parsedUser);
     }
   }, []);
 
@@ -23,6 +24,7 @@ export const AuthProvider = ({ children }) => {
     setAvatarUrl(null);
     localStorage.removeItem('token');
     localStorage.removeItem('user_string');
+    console.log('User logged out');
   };
 
   return (
