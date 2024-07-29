@@ -2,7 +2,6 @@ import React, { createRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Cropper from "react-cropper";
 import 'cropperjs/dist/cropper.css';
-import axios from 'axios';
 
 const file2Base64 = (file) => {
   return new Promise((resolve, reject) => {
@@ -13,7 +12,7 @@ const file2Base64 = (file) => {
   });
 };
 
-const ImageUploader = ({ onImageUpload }) => {
+const ImageUploader = ({ setBlogImage }) => {
   const fileRef = createRef();
   const [uploaded, setUploaded] = useState(null);
   const [cropped, setCropped] = useState(null);
@@ -33,22 +32,23 @@ const ImageUploader = ({ onImageUpload }) => {
     const cropper = imageElement.cropper;
     const croppedImage = cropper.getCroppedCanvas().toDataURL();
     setCropped(croppedImage);
-    uploadImageToCloudinary(croppedImage);
+    setBlogImage(croppedImage);
+
   };
 
-  const uploadImageToCloudinary = async (image) => {
-    const formData = new FormData();
-    formData.append('file', image);
-    formData.append('upload_preset', 'your_upload_preset'); // Replace with your Cloudinary upload preset
+ //const uploadImageToCloudinary = async (image) => {
+ //  const formData = new FormData();
+ //  formData.append('file', image);
+ //  formData.append('upload_preset', 'your_upload_preset'); // Replace with your Cloudinary upload preset
 
-    try {
-      const response = await axios.post('https://api.cloudinary.com/v1_1/your_cloud_name/image/upload', formData); // Replace with your Cloudinary URL
-      const imageUrl = response.data.secure_url;
-      onImageUpload(imageUrl);
-    } catch (error) {
-      console.error('Error uploading image:', error);
-    }
-  };
+ //  try {
+ //    const response = await axios.post('https://api.cloudinary.com/v1_1/your_cloud_name/image/upload', formData); // Replace with your Cloudinary URL
+ //    const imageUrl = response.data.secure_url;
+ //    onImageUpload(imageUrl);
+ //  } catch (error) {
+ //    console.error('Error uploading image:', error);
+ //  }
+ //};
 
   return (
     <div>
@@ -84,8 +84,5 @@ const ImageUploader = ({ onImageUpload }) => {
   );
 };
 
-ImageUploader.propTypes = {
-  onImageUpload: PropTypes.func.isRequired,
-};
 
 export default ImageUploader;

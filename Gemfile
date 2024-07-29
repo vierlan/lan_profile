@@ -54,6 +54,8 @@ gem 'faker'
 gem 'devise-jwt'
 gem 'jsonapi-serializer'
 gem 'cloudinary'
+gem 'activestorage-cloudinary-service'
+gem "activestorage", "~> 7.1.3"
 
 group :development, :test do
   gem "dotenv-rails"

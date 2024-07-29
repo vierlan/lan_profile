@@ -103,7 +103,7 @@ const SignUpForm = () => {
           required
         />
         {passwordsMatchError && <div className="error-message">Passwords do not match</div>}
-          {<AvatarUploader onAvatarChange={setAvatar} />}
+          {<AvatarUploader setAvatar={setAvatar} />}
         <button type="submit" onClick={handleSignup}>Sign Up</button>
       </form>
     {/*{avatar ? <p>{avatar}</p> : null}*/ }

@@ -12,7 +12,7 @@ const file2Base64 = (file) => {
   });
 };
 
-const AvatarUploader = ({ onAvatarChange }) => {
+const AvatarUploader = ({ setAvatar }) => {
   const fileRef = createRef();
   const [uploaded, setUploaded] = useState(null);
   const [cropped, setCropped] = useState(null);
@@ -32,7 +32,7 @@ const AvatarUploader = ({ onAvatarChange }) => {
     const cropper = imageElement.cropper;
     const croppedImage = cropper.getCroppedCanvas().toDataURL();
     setCropped(croppedImage);
-    onAvatarChange(croppedImage);
+    setAvatar(croppedImage);
   };
 
   return (
@@ -70,7 +70,7 @@ const AvatarUploader = ({ onAvatarChange }) => {
 };
 
 AvatarUploader.propTypes = {
-  onAvatarChange: PropTypes.func.isRequired,
+  setAvatar: PropTypes.func.isRequired,
 };
 
 export default AvatarUploader;
