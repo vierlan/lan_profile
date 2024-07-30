@@ -5,38 +5,42 @@ import AvatarUploader from './AvatarUploader';
 import '../../assets/stylesheets/signupForm.scss';
 import AuthContext from '../../api/AuthProvider';
 
-
 const SignUpForm = () => {
   const { setAuth, setAvatarUrl } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [username, setUsername] = useState('');
-  const [avatar, setAvatar] = useState('');
+  const [avatar, setAvatar] = useState(null);
   const [passwordsMatchError, setPasswordsMatchError] = useState(false);
   const [signupError, setSignupError] = useState('');
-  //const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   const handleSignup = async (event) => {
     event.preventDefault();
+    console.log('avatar', avatar);
 
     if (!validatePasswords()) {
       return;
     }
 
+    const formData = new FormData();
+    formData.append('user[email]', email);
+    formData.append('user[password]', password);
+    formData.append('user[username]', username);
+    const filename = `${username}-avatar.jpg`;
+    formData.append('user[avatar_url]', avatar, filename);
+
+    if (avatar) {
+      formData.append('user[avatar_url]', avatar, 'avatar.jpg');
+    }
+
     try {
-      const response = await axios.post('http://localhost:3000/signup', {
-        user: {
-          email,
-          password,
-          username,
-         avatar_url: avatar
-        }
+      const response = await axios.post('http://localhost:3000/signup', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
 
       if (response.status === 200) {
-
         const token = response.headers.authorization.split(' ')[1];
         const user = response.data.user;
         setAuth({ user, token });
@@ -45,12 +49,8 @@ const SignUpForm = () => {
         setPassword('');
         localStorage.setItem('token', token);
         localStorage.setItem('user_string', JSON.stringify(user));
-        console.log(response);
         alert(`Signup successful! Welcome ${user.username}!`);
         navigate('/profile');
-
-
-        console.log('Signup successful!');
       } else {
         setSignupError('Signup failed. Please try again.');
       }
@@ -103,10 +103,9 @@ const SignUpForm = () => {
           required
         />
         {passwordsMatchError && <div className="error-message">Passwords do not match</div>}
-          {<AvatarUploader setAvatar={setAvatar} />}
+        <AvatarUploader setAvatar={setAvatar} />
         <button type="submit" onClick={handleSignup}>Sign Up</button>
       </form>
-    {/*{avatar ? <p>{avatar}</p> : null}*/ }
     </div>
   );
 };

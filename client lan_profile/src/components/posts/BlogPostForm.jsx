@@ -81,7 +81,7 @@ const BlogPostForm = () => {
       <button type="button" onClick={() => handleAddSection('subheader')}>Add Subheader</button>
       <button type="button" onClick={() => handleAddSection('body')}>Add Body</button>
       <ImageUploader setBlogImage={setBlogImage} />
-      <button type="submit" onSubmit={handleSubmit} >Create Blog Post</button>
+      <button type="submit" onClick={handleSubmit} >Create Blog Post</button>
     </form>
   );
 };
